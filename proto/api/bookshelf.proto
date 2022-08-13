@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option go_package = "github.com/satttto/bookshelf";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service BookshelfService {
+    rpc AddBook(AddBookRequest) returns (AddBookResponse);
+    rpc ListBooks(google.protobuf.Empty) returns (ListBooksResponse);
+};
+
+enum Category {
+    CATEGORY_UNKNOWN = 0;
+    CATEGORY_TECH = 1;
+}
+
+message Book {
+    int64 id = 1;
+    string title = 2;
+    Category category = 3;
+    string author = 4;
+    google.protobuf.Timestamp created_at = 50;
+    google.protobuf.Timestamp updated_at = 51;
+    google.protobuf.Timestamp deleted_at = 52;
+}
+
+message AddBookRequest {
+    string title = 1;
+    Category category = 2;
+    string author = 3;
+}
+
+message AddBookResponse {
+    Book book = 1;
+}
+
+message ListBooksResponse {
+    repeated Book books = 1;
+}
