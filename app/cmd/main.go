@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/satttto/bookshelf/app/adapter/grpc"
 	"github.com/satttto/bookshelf/app/config"
+	"github.com/satttto/bookshelf/app/server"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func run() int {
 		return 1
 	}
 
-	server := grpc.New()
+	server := server.New()
 	if !config.IsProduction() {
 		// Allowing grpcurl reqests to test/debug.
 		reflection.Register(server)
