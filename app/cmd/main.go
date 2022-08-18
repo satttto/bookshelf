@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 
-	pb "github.com/satttto/bookshelf/proto/api"
+	pb "github.com/satttto/bookshelf/proto-client/api"
 	"google.golang.org/grpc"
 )
 
