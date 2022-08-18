@@ -1,4 +1,4 @@
-module github.com/satttto/proto-client
+module github.com/satttto/bookshelf/proto-client
 
 go 1.18
 
