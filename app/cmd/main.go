@@ -20,7 +20,7 @@ func main() {
 
 	server := grpc.NewServer()
 
-	pb.RegisterGreetingServiceServer(server)
+	pb.RegisterBookshelfServiceServer(server, nil)
 
 	go func() {
 		log.Printf("start gRPC server port: %v", port)
