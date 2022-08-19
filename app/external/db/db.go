@@ -36,6 +36,10 @@ func (d *DB) Migrate() error {
 	return nil
 }
 
-func (d *DB) AddBook(ctx context.Context, book model.Book) (*model.Book, error) {
-	return nil, nil
+func (d *DB) AddBook(ctx context.Context, book *model.Book) error {
+	if err := d.client.Create(book).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

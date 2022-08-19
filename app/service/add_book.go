@@ -7,10 +7,21 @@ import (
 )
 
 type AddBookServiceInput struct {
+	Title    string
+	Category model.Category
+	Author   string
 }
 
 func (s *BookshelfServiceImp) AddBook(ctx context.Context, in AddBookServiceInput) (model.Book, error) {
-	return model.Book{
-		ID: 1,
-	}, nil
+	book := &model.Book{
+		Title:    in.Title,
+		Category: in.Category,
+		Auther:   in.Author,
+	}
+
+	if err := s.db.AddBook(ctx, book); err != nil {
+		return model.Book{}, err
+	}
+
+	return *book, nil
 }
