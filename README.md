@@ -33,6 +33,10 @@ $ protoc --go_out=../client --go_opt=paths=source_relative \
 ```
 3. change files in the app directory
 
+Note: (core) model <- service <- adapter <- external (outer)
+
+Note: Change adapter -> external. Don't do the other around.
+
 ## How to run on your local
 1. Copy app/config/.envrc and paste it to Termial. 
 2. In the root directory (bookshelf in this case), execute
