@@ -5,9 +5,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	adapterDB "github.com/satttto/bookshelf/app/adapter/db"
+	adapterDB "github.com/satttto/bookshelf/app/adapter/rdb"
 	"github.com/satttto/bookshelf/app/config"
-	externalDB "github.com/satttto/bookshelf/app/external/db"
+	externalDB "github.com/satttto/bookshelf/app/external/postgre"
 	"github.com/satttto/bookshelf/app/pkg/logger"
 )
 

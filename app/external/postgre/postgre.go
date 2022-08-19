@@ -1,11 +1,11 @@
-package db
+package postgre
 
 import (
 	"context"
 
 	"github.com/pkg/errors"
 
-	adapterDB "github.com/satttto/bookshelf/app/adapter/db"
+	adapterDB "github.com/satttto/bookshelf/app/adapter/rdb"
 	"github.com/satttto/bookshelf/app/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
