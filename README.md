@@ -20,7 +20,6 @@ bookshelf
 ├── docker-compose.yaml # local env prep
 └── proto
     ├── api
-    │   └── bookshelf.proto
     └── event
 ```
 
