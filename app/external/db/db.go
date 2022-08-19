@@ -36,10 +36,19 @@ func (d *DB) Migrate() error {
 	return nil
 }
 
-func (d *DB) AddBook(ctx context.Context, book *model.Book) error {
-	if err := d.client.Create(book).Error; err != nil {
-		return err
+func (d *DB) AddBook(ctx context.Context, book model.Book) (model.Book, error) {
+	if err := d.client.Create(&book).Error; err != nil {
+		return model.Book{}, err
 	}
 
-	return nil
+	return book, nil
+}
+
+func (d *DB) ListBooks(ctx context.Context) ([]model.Book, error) {
+	var books []model.Book
+	if err := d.client.Find(&books).Error; err != nil {
+		return nil, err
+	}
+
+	return books, nil
 }

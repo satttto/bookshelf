@@ -13,15 +13,16 @@ type AddBookServiceInput struct {
 }
 
 func (s *BookshelfServiceImp) AddBook(ctx context.Context, in AddBookServiceInput) (model.Book, error) {
-	book := &model.Book{
+	book := model.Book{
 		Title:    in.Title,
 		Category: in.Category,
 		Auther:   in.Author,
 	}
 
-	if err := s.db.AddBook(ctx, book); err != nil {
+	book, err := s.db.AddBook(ctx, book)
+	if err != nil {
 		return model.Book{}, err
 	}
 
-	return *book, nil
+	return book, nil
 }
