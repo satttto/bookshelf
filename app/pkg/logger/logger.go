@@ -9,7 +9,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-type Log struct {
+type Logger struct {
 	zap *zap.Logger
 }
 
@@ -21,7 +21,7 @@ const (
 	PRD   EnvType = "prd"
 )
 
-func New(level string, env EnvType) (*Log, error) {
+func New(level string, env EnvType) (*Logger, error) {
 	l, err := logLevel(level)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func New(level string, env EnvType) (*Log, error) {
 		return nil, errors.Wrap(err, "failed to build zap config")
 	}
 
-	return &Log{
+	return &Logger{
 		zap: zapLogger,
 	}, nil
 }
@@ -68,16 +68,16 @@ func logLevel(level string) (zapcore.Level, error) {
 }
 
 // Info outputs an INFO log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
-func (l *Log) Info(msg string, fields ...zapcore.Field) {
+func (l *Logger) Info(msg string, fields ...zapcore.Field) {
 	l.zap.Info(msg, fields...)
 }
 
 // Debug outputs a debug log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
-func (l *Log) Debug(msg string, fields ...zapcore.Field) {
+func (l *Logger) Debug(msg string, fields ...zapcore.Field) {
 	l.zap.Debug(msg, fields...)
 }
 
 // Error outputs a debug log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
-func (l *Log) Error(msg string, fields ...zapcore.Field) {
+func (l *Logger) Error(msg string, fields ...zapcore.Field) {
 	l.zap.Error(msg, fields...)
 }

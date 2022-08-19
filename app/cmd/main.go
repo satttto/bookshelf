@@ -11,6 +11,7 @@ import (
 
 	"github.com/satttto/bookshelf/app/config"
 	"github.com/satttto/bookshelf/app/server"
+	"github.com/satttto/bookshelf/app/service"
 )
 
 func main() {
@@ -31,16 +32,23 @@ func run() int {
 		return 1
 	}
 
+	db, err := setupDB(config)
+	if err != nil {
+		logger.Error("Failed to set up db")
+	}
+
+	bookshelfService := service.New(logger, db)
+
+	server := server.New(bookshelfService)
+	if !config.IsProduction() {
+		// Allowing grpcurl reqests to test/debug.
+		reflection.Register(server)
+	}
+
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.GRPCPort))
 	if err != nil {
 		logger.Error("Failed to set up a listener")
 		return 1
-	}
-
-	server := server.New()
-	if !config.IsProduction() {
-		// Allowing grpcurl reqests to test/debug.
-		reflection.Register(server)
 	}
 
 	go func() {

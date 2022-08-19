@@ -1,32 +1,25 @@
 package server
 
 import (
-	"context"
-
+	"github.com/satttto/bookshelf/app/service"
 	pb "github.com/satttto/bookshelf/proto-client/api"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func New() *grpc.Server {
+func New(service service.BookshelfService) *grpc.Server {
 	grpcServer := grpc.NewServer()
-	bookshelf := newBookshelfServer()
+	bookshelf := newBookshelfServer(service)
 	pb.RegisterBookshelfServiceServer(grpcServer, bookshelf)
 	return grpcServer
 }
 
 type BookshelfServer struct {
 	pb.UnimplementedBookshelfServiceServer
+	service service.BookshelfService
 }
 
-func newBookshelfServer() *BookshelfServer {
-	return &BookshelfServer{}
-}
-
-func (s *BookshelfServer) AddBook(ctx context.Context, req *pb.AddBookRequest) (*pb.AddBookResponse, error) {
-	return &pb.AddBookResponse{}, nil
-}
-
-func (s *BookshelfServer) ListBooks(ctx context.Context, req *emptypb.Empty) (*pb.ListBooksResponse, error) {
-	return &pb.ListBooksResponse{}, nil
+func newBookshelfServer(service service.BookshelfService) pb.BookshelfServiceServer {
+	return &BookshelfServer{
+		service: service,
+	}
 }
