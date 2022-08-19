@@ -35,7 +35,12 @@ $ protoc --go_out=../client --go_opt=paths=source_relative \
 3. change files in the app directory
 
 ## How to run on your local
-Copy app/config/.envrc and paste it to Termial. Then, in the root directory (bookshelf in this case), execute
+1. Copy app/config/.envrc and paste it to Termial. 
+2. In the root directory (bookshelf in this case), execute
+```bash
+docker-compose up -d
+```
+3. In the root directory (bookshelf in this case), execute
 ```bash
 go run app/cmd/main.go app/cmd/setup.go
 ```
