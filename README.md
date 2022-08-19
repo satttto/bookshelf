@@ -5,43 +5,19 @@
 ```
 bookshelf
 ├── README.md
-├── app   # application
+├── app    # application
 │   ├── adapter    # interface definition. files in app/service call external services based on the interface.
-│   │   └── db
-│   │       └── db.go
-│   ├── cmd
-│   │   ├── main.go
-│   │   └── setup.go
+│   ├── cmd        # set-up functions and main function
 │   ├── config
-│   │   └── config.go
-│   ├── external    # external service callers that implement app/adapter
-│   │   └── db
-│   │       └── db.go
-│   ├── go.mod
-│   ├── go.sum
-│   ├── model       # the most important thing. models depend on nothing.
-│   │   ├── book.go
-│   │   └── timestamp.go
-│   ├── pkg         # packages that do not depend on the project (this microservice itself)
-│   │   └── logger
-│   │       └── logger.go. 
-│   ├── server      # responsible for validating requests and handling requests and events
-│   │   ├── add_book.go
-│   │   ├── live_books.go
-│   │   ├── model_pb_converter.go
-│   │   └── server.go
-│   └── service.    # corresponds to use-case layer in the clearn architecture
-│       ├── add_book.go
-│       └── service.go
-├── client   # generated code based on proto
-│   ├── api
-│   │   ├── bookshelf.pb.go
-│   │   └── bookshelf_grpc.pb.go
-│   ├── go.mod
-│   └── go.sum
+│   ├── external   # external service callers that implement app/adapter
+│   ├── model      # the most important thing. models depend on nothing.
+│   ├── pkg        # packages that do not depend on the project (this microservice itself)
+│   ├── server     # responsible for validating requests and handling requests and events
+│   └── service    # corresponds to use-case layer in the clearn architecture
+├── client  # generated code based on proto
+│   ├── api 
+│   └── event
 ├── docker-compose.yaml # local env prep
-├── go.work
-├── go.work.sum
 └── proto
     ├── api
     │   └── bookshelf.proto
