@@ -12,3 +12,4 @@ $ go run app/cmd/main.go app/cmd/setup.go
 
 
 $ grpcurl -plaintext localhost:8080 BookshelfService/ListBooks
+$ grpcurl -plaintext -d '{"title": "sample", "category": 1, "author": "satoshi"}' localhost:8080 BookshelfService/AddBook
