@@ -2,6 +2,7 @@
 
 # Sample gRPC server
 ## Structure
+```
 bookshelf
 ├── README.md
 ├── app   # application
@@ -45,6 +46,7 @@ bookshelf
     ├── api
     │   └── bookshelf.proto
     └── event
+```
 
 ## How to add a feature
 1. mod proto/api or proto/event
