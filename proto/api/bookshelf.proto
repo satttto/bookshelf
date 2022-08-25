@@ -8,6 +8,7 @@ import "google/protobuf/timestamp.proto";
 service BookshelfService {
     rpc AddBook(AddBookRequest) returns (AddBookResponse);
     rpc ListBooks(google.protobuf.Empty) returns (ListBooksResponse);
+    rpc GetBook(GetBookRequest) returns (GetBookResponse);
 };
 
 enum Category {
@@ -37,4 +38,12 @@ message AddBookResponse {
 
 message ListBooksResponse {
     repeated Book books = 1;
+}
+
+message GetBookRequest {
+    int64 id = 1;
+}
+
+message GetBookResponse {
+    Book book = 1;
 }

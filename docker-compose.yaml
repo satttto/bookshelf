@@ -22,7 +22,7 @@ services:
     volumes:
       - redis:/var/lib/redis/data
     environment:
-      - REDIS_USER=default
+      - REDIS_USER=bookshelf-user
       - REDIS_PASS=password
       - REDIS_HOST=localhost
       - REDIS_PORT=6379
