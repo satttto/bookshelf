@@ -37,7 +37,12 @@ func run() int {
 		logger.Error("Failed to set up db")
 	}
 
-	bookshelfService := service.New(logger, db)
+	cache, err := setupCache(config)
+	if err != nil {
+		logger.Error("Failed to set up cache")
+	}
+
+	bookshelfService := service.New(logger, db, cache)
 
 	server := server.New(bookshelfService)
 	if !config.IsProduction() {

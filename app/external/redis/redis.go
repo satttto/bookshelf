@@ -27,3 +27,7 @@ func New(addr string, username string, password string) (cache.Cache, error) {
 func (r *Redis) Get(ctx context.Context, key string) (string, error) {
 	return "", nil
 }
+
+func (r *Redis) Put(ctx context.Context, key string, value string) error {
+	return nil
+}

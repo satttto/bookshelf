@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 
+	"github.com/satttto/bookshelf/app/adapter/cache"
 	"github.com/satttto/bookshelf/app/adapter/rdb"
 	"github.com/satttto/bookshelf/app/model"
 	"github.com/satttto/bookshelf/app/pkg/logger"
@@ -14,13 +15,15 @@ type BookshelfService interface {
 }
 
 type BookshelfServiceImp struct {
-	db     rdb.DB
 	logger *logger.Logger
+	db     rdb.DB
+	cache  cache.Cache
 }
 
-func New(logger *logger.Logger, db rdb.DB) BookshelfService {
+func New(logger *logger.Logger, db rdb.DB, cache cache.Cache) BookshelfService {
 	return &BookshelfServiceImp{
 		logger: logger,
 		db:     db,
+		cache:  cache,
 	}
 }

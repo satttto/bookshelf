@@ -5,9 +5,11 @@ import (
 
 	"github.com/pkg/errors"
 
+	adapterCache "github.com/satttto/bookshelf/app/adapter/cache"
 	adapterDB "github.com/satttto/bookshelf/app/adapter/rdb"
 	"github.com/satttto/bookshelf/app/config"
 	externalDB "github.com/satttto/bookshelf/app/external/postgre"
+	externalCache "github.com/satttto/bookshelf/app/external/redis"
 	"github.com/satttto/bookshelf/app/pkg/logger"
 )
 
@@ -42,4 +44,13 @@ func setupDB(config *config.Config) (adapterDB.DB, error) {
 	}
 
 	return db, nil
+}
+
+func setupCache(config *config.Config) (adapterCache.Cache, error) {
+	cache, err := externalCache.New("", config.CacheUser, config.CachePassword)
+	if err != nil {
+		return nil, err
+	}
+
+	return cache, nil
 }
