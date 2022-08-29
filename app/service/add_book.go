@@ -25,7 +25,7 @@ func (s *BookshelfServiceImp) AddBook(ctx context.Context, in *AddBookServiceInp
 	}
 
 	if err := s.cache.PutBook(ctx, book); err != nil {
-		return nil, err
+		s.logger.Warn("failed to store a book data in Cache")
 	}
 
 	return book, nil

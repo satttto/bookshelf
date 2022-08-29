@@ -59,6 +59,8 @@ func logLevel(level string) (zapcore.Level, error) {
 		l = zapcore.InfoLevel
 	case "DEBUG":
 		l = zapcore.DebugLevel
+	case "WARN":
+		l = zapcore.WarnLevel
 	case "ERROR":
 		l = zapcore.ErrorLevel
 	default:
@@ -75,6 +77,11 @@ func (l *Logger) Info(msg string, fields ...zapcore.Field) {
 // Debug outputs a debug log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
 func (l *Logger) Debug(msg string, fields ...zapcore.Field) {
 	l.zap.Debug(msg, fields...)
+}
+
+// Warn outputs a warn log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
+func (l *Logger) Warn(msg string, fields ...zapcore.Field) {
+	l.zap.Warn(msg, fields...)
 }
 
 // Error outputs a debug log. Fields: https://pkg.go.dev/go.uber.org/zap#Field
