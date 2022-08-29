@@ -2,9 +2,11 @@ package cache
 
 import (
 	"context"
+
+	"github.com/satttto/bookshelf/app/model"
 )
 
 type Cache interface {
-	Get(ctx context.Context, key string) (string, error)
-	Put(ctx context.Context, key string, value string) error
+	GetBook(ctx context.Context, id int64) (*model.Book, bool, error)
+	PutBook(ctx context.Context, book *model.Book) error
 }

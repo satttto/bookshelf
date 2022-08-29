@@ -10,8 +10,9 @@ import (
 )
 
 type BookshelfService interface {
-	AddBook(ctx context.Context, in AddBookServiceInput) (model.Book, error)
+	AddBook(ctx context.Context, in *AddBookServiceInput) (*model.Book, error)
 	ListBooks(ctx context.Context) ([]model.Book, error)
+	GetBook(ctx context.Context, in *GetBookServiceInput) (*model.Book, error)
 }
 
 type BookshelfServiceImp struct {

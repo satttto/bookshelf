@@ -61,3 +61,8 @@ $ grpcurl -plaintext localhost:8080 BookshelfService/ListBooks
 ```bash
 $ grpcurl -plaintext -d '{"title": "sample", "category": 1, "author": "satoshi"}' localhost:8080 BookshelfService/AddBook
 ```
+
+#### Call GetBook
+``` bash
+$ grpcurl -plaintext -d '{"id": 1}' localhost:8080 BookshelfService/GetBook
+```

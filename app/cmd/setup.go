@@ -23,7 +23,7 @@ func setupLogger(config *config.Config) (*logger.Logger, error) {
 	return log, nil
 }
 
-func setupDB(config *config.Config) (adapterDB.DB, error) {
+func setupDB(config *config.Config) (*adapterDB.DB, error) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo",
 		config.DBHost,
 		config.DBUser,
@@ -43,14 +43,15 @@ func setupDB(config *config.Config) (adapterDB.DB, error) {
 		}
 	}
 
-	return db, nil
+	return &db, nil
 }
 
-func setupCache(config *config.Config) (adapterCache.Cache, error) {
-	cache, err := externalCache.New("", config.CacheUser, config.CachePassword)
+func setupCache(config *config.Config) (*adapterCache.Cache, error) {
+	addr := fmt.Sprintf("%s:%s", config.CacheHost, config.CachePort)
+	cache, err := externalCache.New(addr, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	return cache, nil
+	return &cache, nil
 }
