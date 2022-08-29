@@ -54,10 +54,10 @@ func (d *DB) ListBooks(ctx context.Context) ([]model.Book, error) {
 }
 
 func (d *DB) GetBook(ctx context.Context, id int64) (*model.Book, error) {
-	var book model.Book
-	if err := d.client.First(&book, id).Error; err != nil {
+	var book *model.Book
+	if err := d.client.First(book, id).Error; err != nil {
 		return nil, err
 	}
 
-	return &book, nil
+	return book, nil
 }
