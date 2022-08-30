@@ -8,15 +8,15 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (s *BookshelfServer) AddBook(ctx context.Context, req *pb.AddBookRequest) (*pb.AddBookResponse, error) {
-	in := convertAddBookReqToServiceInput(req)
+func (s *BookshelfServer) GetBook(ctx context.Context, req *pb.GetBookRequest) (*pb.GetBookResponse, error) {
+	in := convertGetBookReqToServiceInput(req)
 
-	out, err := s.service.AddBook(ctx, in)
+	out, err := s.service.GetBook(ctx, in)
 	if err != nil {
 		return nil, err
 	}
 
-	return &pb.AddBookResponse{
+	return &pb.GetBookResponse{
 		Book: &pb.Book{
 			Id:        out.ID,
 			Title:     out.Title,
@@ -24,14 +24,13 @@ func (s *BookshelfServer) AddBook(ctx context.Context, req *pb.AddBookRequest) (
 			Author:    out.Auther,
 			CreatedAt: timestamppb.New(out.CreatedAt),
 			UpdatedAt: timestamppb.New(out.UpdatedAt),
+			DeletedAt: timestamppb.New(out.DeletedAt),
 		},
 	}, nil
 }
 
-func convertAddBookReqToServiceInput(req *pb.AddBookRequest) *service.AddBookServiceInput {
-	return &service.AddBookServiceInput{
-		Title:    req.Title,
-		Category: convertCategoryPbToModel(req.Category),
-		Author:   req.Author,
+func convertGetBookReqToServiceInput(req *pb.GetBookRequest) *service.GetBookServiceInput {
+	return &service.GetBookServiceInput{
+		Id: req.Id,
 	}
 }

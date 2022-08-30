@@ -22,6 +22,12 @@ type Config struct {
 	DBPort        string `envconfig:"DB_PORT" default:"5432"`
 	DBHost        string `envconfig:"DB_HOST" default:"localhost"`
 	ShouldMigrate bool   `envconfig:"SHOULD_MIGRATE" default:"false"`
+
+	// Cache config
+	//CacheUser     string `envconfig:"CACHE_USER" default:"bookshelf-user"`
+	//CachePassword string `envconfig:"CACHE_PASSWORD" required:"true"`
+	CachePort string `envconfig:"CACHE_PORT" default:"6379"`
+	CacheHost string `envconfig:"CACHE_HOST" default:"localhost"`
 }
 
 func ReadConfig() (*Config, error) {

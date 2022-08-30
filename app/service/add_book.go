@@ -12,8 +12,8 @@ type AddBookServiceInput struct {
 	Author   string
 }
 
-func (s *BookshelfServiceImp) AddBook(ctx context.Context, in AddBookServiceInput) (model.Book, error) {
-	book := model.Book{
+func (s *BookshelfServiceImp) AddBook(ctx context.Context, in *AddBookServiceInput) (*model.Book, error) {
+	book := &model.Book{
 		Title:    in.Title,
 		Category: in.Category,
 		Auther:   in.Author,
@@ -21,7 +21,11 @@ func (s *BookshelfServiceImp) AddBook(ctx context.Context, in AddBookServiceInpu
 
 	book, err := s.db.AddBook(ctx, book)
 	if err != nil {
-		return model.Book{}, err
+		return nil, err
+	}
+
+	if err := s.cache.PutBook(ctx, book); err != nil {
+		s.logger.Warn("failed to store a book data in Cache")
 	}
 
 	return book, nil

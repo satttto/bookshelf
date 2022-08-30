@@ -22,22 +22,27 @@ func run() int {
 	// Config
 	config, err := config.ReadConfig()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to read config : %s\n", err)
+		fmt.Fprintf(os.Stderr, "failed to read config : %s\n", err)
 		return 1
 	}
 
 	logger, err := setupLogger(config)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to setup logger: %s\n", err)
+		fmt.Fprintf(os.Stderr, "failed to setup logger: %s\n", err)
 		return 1
 	}
 
 	db, err := setupDB(config)
 	if err != nil {
-		logger.Error("Failed to set up db")
+		logger.Error("failed to set up db")
 	}
 
-	bookshelfService := service.New(logger, db)
+	cache, err := setupCache(config)
+	if err != nil {
+		logger.Error("failed to set up cache")
+	}
+
+	bookshelfService := service.New(logger, *db, *cache)
 
 	server := server.New(bookshelfService)
 	if !config.IsProduction() {
@@ -52,7 +57,7 @@ func run() int {
 	}
 
 	go func() {
-		logger.Info("Started listening", zap.Int("port", config.GRPCPort))
+		logger.Info("started listening", zap.Int("port", config.GRPCPort))
 		server.Serve(listener)
 	}()
 
@@ -60,7 +65,7 @@ func run() int {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	logger.Info("Stopped listening")
+	logger.Info("stopped listening")
 	server.GracefulStop()
 
 	return 0
