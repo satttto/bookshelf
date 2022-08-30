@@ -35,11 +35,13 @@ func run() int {
 	db, err := setupDB(config)
 	if err != nil {
 		logger.Error("failed to set up db")
+		return 1
 	}
 
 	cache, err := setupCache(config)
 	if err != nil {
 		logger.Error("failed to set up cache")
+		return 1
 	}
 
 	bookshelfService := service.New(logger, *db, *cache)
