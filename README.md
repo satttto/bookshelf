@@ -23,7 +23,7 @@ bookshelf
     └── event
 ```
 
-## How to add a feature
+## How to add features
 1. mod proto/api or proto/event
 2. specify api or event, substitute xxxx with the file name and exetute the command belown in the proto directory
 ```bash
@@ -37,7 +37,7 @@ Note: (core) model <- service <- adapter <- external (outer)
 
 Note: Change adapter -> external. Don't do the other around.
 
-## How to run on your local
+## How to run it on your local
 1. Copy app/config/.envrc and paste it to Termial.
 2. In the root directory (bookshelf in this case), execute
 ```bash
